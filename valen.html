@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Valentine? 💖</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  background: linear-gradient(135deg, #ff6b9d 0%, #ffc048 50%, #ff6b9d 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+h1 {
+  color: #fff;
+  font-size: 3.5em;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  animation: floatIn 1s ease-out, pulse 2s ease-in-out infinite;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.button-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  margin: 40px 0;
+  position: relative;
+  z-index: 1;
+}
+
+button {
+  padding: 15px 40px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  letter-spacing: 1px;
+}
+
+#yes {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  animation: slideInLeft 0.8s ease-out;
+}
+
+#yes:hover {
+  transform: scale(1.15);
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+}
+
+#yes:active {
+  transform: scale(0.98);
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+#no {
+  background: linear-gradient(135deg, #dc3545, #fd7e14);
+  color: white;
+  position: relative;
+  animation: slideInRight 0.8s ease-out;
+}
+
+#no:hover {
+  background: linear-gradient(135deg, #fd7e14, #dc3545);
+  transform: scale(0.9);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.evasive-no {
+  position: fixed !important;
+}
+
+#gif {
+  display: none;
+  margin-top: 40px;
+  animation: scaleUp 0.6s ease-out;
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#gif h2 {
+  color: white;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+#gif img {
+  max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.heart {
+  position: fixed;
+  pointer-events: none;
+  font-size: 2em;
+  animation: float-up 3s ease-in forwards;
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-500px) rotate(360deg);
+  }
+}
+
+.no-click-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  display: none;
+  z-index: 100;
+  animation: popIn 0.4s ease-out;
+  text-align: center;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.no-click-message h3 {
+  color: #d6336c;
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+.no-click-message p {
+  color: #555;
+  font-size: 1.1em;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 50;
+}
+</style>
+</head>
+<body>
+<div class="overlay" id="overlay"></div>
+<div class="no-click-message" id="message"></div>
+
+<h1>💖 Will you be my Valentine ? 💖</h1>
+<p style="color: white; font-size: 1.2em; margin-bottom: 30px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);">
+  No pressure... but there's really only one right answer 😉
+</p>
+
+<div class="button-container">
+  <button id="yes" onclick="yesClick()">❤️ Yes! ❤️</button>
+  <button id="no" onmouseover="moveNo()" onmouseenter="moveNo()" onmousemove="moveNo()" onclick="moveNo(); return false;">No</button>
+</div>
+
+<div id="gif">
+  <h2>🎉 YESSS! I KNEW IT! 🎉</h2>
+  <p style="color: white; font-size: 1.3em; margin: 20px 0;">You just made me the happiest person alive! 🥰</p>
+  <img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif">
+</div>
+
+<script>
+const messages = [
+  { title: "Uh oh! 😅", text: "That's not the answer I was looking for..." },
+  { title: "Nice try! 😏", text: "Did you seriously think that was an option?" },
+  { title: "Come on now! 💔", text: "Let's be realistic here..." },
+  { title: "Really? 🤨", text: "You're breaking my heart over here!" },
+  { title: "Nope! 🙅‍♂️", text: "Wrong button, my friend!" }
+];
+
+let clickCount = 0;
+
+function moveNo(){
+  const noBtn = document.getElementById("no");
+  const yesBtn = document.getElementById("yes");
+  
+  noBtn.classList.add('evasive-no');
+  
+  // Make Yes button grow and No button shrink each time
+  const scale = 1 - (clickCount * 0.05);
+  noBtn.style.transform = `scale(${Math.max(scale, 0.5)})`;
+  
+  yesBtn.style.fontSize = (20 + clickCount * 3) + "px";
+  yesBtn.style.padding = (15 + clickCount * 2) + "px " + (40 + clickCount * 3) + "px";
+  
+  // More aggressive random position - corners and edges
+  const randomX = Math.random() * (window.innerWidth - 100);
+  const randomY = Math.random() * (window.innerHeight - 80);
+  
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+  
+  // Show random message every 3 attempts
+  if (clickCount % 3 === 0 && clickCount > 0) {
+    const msg = messages[clickCount % messages.length];
+    showMessage(msg.title, msg.text);
+  }
+  
+  clickCount++;
+}
+
+function handleNoHover(e) {
+  const noBtn = document.getElementById("no");
+  const rect = noBtn.getBoundingClientRect();
+  const distance = Math.hypot(e.clientX - rect.left, e.clientY - rect.top);
+  
+  // If cursor gets too close, button escapes!
+  if (distance < 100) {
+    moveNo();
+  }
+}
+
+function showMessage(title, text) {
+  const messageDiv = document.getElementById("message");
+  const overlay = document.getElementById("overlay");
+  
+  messageDiv.innerHTML = `<h3>${title}</h3><p>${text}</p>`;
+  messageDiv.style.display = "block";
+  overlay.style.display = "block";
+  
+  setTimeout(() => {
+    messageDiv.style.display = "none";
+    overlay.style.display = "none";
+  }, 2000);
+}
+
+function createFloatingHearts() {
+  const hearts = ['❤️', '💕', '💖', '💗', '💝'];
+  for (let i = 0; i < 3; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = window.innerHeight + "px";
+    document.body.appendChild(heart);
+    
+    setTimeout(() => heart.remove(), 3000);
+  }
+}
+
+// Track mouse movement for proximity-based button evasion
+document.addEventListener('mousemove', function(e) {
+  const noBtn = document.getElementById("no");
+  if (noBtn && noBtn.classList.contains('evasive-no')) {
+    const rect = noBtn.getBoundingClientRect();
+    const distance = Math.hypot(e.clientX - (rect.left + rect.width/2), e.clientY - (rect.top + rect.height/2));
+    
+    // If cursor gets within 80px, button escapes!
+    if (distance < 80) {
+      moveNo();
+    }
+  }
+});
+
+function yesClick(){
+  document.getElementById("gif").style.display = "block";
+  document.getElementById("no").style.display = "none";
+  document.getElementById("yes").style.display = "none";
+  
+  // Confetti effect
+  createConfetti();
+}
+
+function createConfetti() {
+  const confettiPieces = 50;
+  for (let i = 0; i < confettiPieces; i++) {
+    const confetti = document.createElement('div');
+    confetti.style.position = 'fixed';
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.top = '-10px';
+    confetti.style.fontSize = '1.5em';
+    confetti.textContent = ['🎉', '💖', '✨', '🌹'][Math.floor(Math.random() * 4)];
+    confetti.style.animation = `float-up ${2 + Math.random() * 2}s ease-in forwards`;
+    confetti.style.pointerEvents = 'none';
+    document.body.appendChild(confetti);
+    
+    setTimeout(() => confetti.remove(), 4000);
+  }
+}
+</script>
+</body>
+</html>
